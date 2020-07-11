@@ -8,9 +8,9 @@ import logo from "../../Assets/global/logo/webmotors.svg";
 
 const Header = () => {
   return (
-    <HeaderWebMotors>
-      <div>
-        <img src={logo} alt="Logo Webmotors" />
+    <HeaderWebMotors className="wm-header">
+      <div className="wm-header__logo">
+        <img src={logo} alt="Logo Webmotors" className="wm-header__logo-img" />
       </div>
     </HeaderWebMotors>
   );
