@@ -1,11 +1,18 @@
 import React from "react";
 
-function App() {
+/* Import Components */
+import Header from "./Components/Header";
+
+/* Import Styles */
+import GlobalStyle from "./styles/global";
+
+const App = (props) => {
   return (
-    <div className="App">
-      <h1>Projeto WebMotors</h1>
-    </div>
+    <>
+      <h1>Inicializando o projeto</h1>
+      <GlobalStyle />
+    </>
   );
-}
+};
 
 export default App;
