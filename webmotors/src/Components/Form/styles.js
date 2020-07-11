@@ -9,6 +9,10 @@ export const MainContent = styled.main`
   .wm-section {
     &__options {
       &-navigation {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
       }
       &-list {
         display: flex;
