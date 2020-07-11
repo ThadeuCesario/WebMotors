@@ -12,6 +12,13 @@ export default createGlobalStyle`
     background-color: #ECEDF2;
     color: #696977;
     -webkit-font-smoothing: antialiased;
+    padding: 15px;
+  }
+
+  main{
+    width: 933px;
+    height: 312px;
+    border: solid 1px red;
   }
 
   html{
