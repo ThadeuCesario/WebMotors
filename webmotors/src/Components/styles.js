@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Title = styled.header`
+export const HeaderWebMotors = styled.header`
   border: solid 2px red;
 
   span {
