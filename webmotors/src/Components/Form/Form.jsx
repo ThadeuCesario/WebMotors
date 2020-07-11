@@ -9,7 +9,7 @@ const Form = (props) => {
         <div className="wm-section__options">
           <nav className="wm-section__options-navigation">
             <ul className="wm-section__options-list">
-              <li className="wm-section__options-list-item">
+              <li className="wm-section__options-list-item is--active">
                 <i
                   className="fa fa-car wm-section__options-list-icon"
                   aria-hidden="true"
