@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://desafioonline.webmotors.com.br/api/OnlineChallenge",
+  baseURL: "http://desafioonline.webmotors.com.br/api/OnlineChallenge/",
 });
 
-export default axios;
+export default api;
