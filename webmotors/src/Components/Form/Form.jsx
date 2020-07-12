@@ -6,6 +6,7 @@ import { FormSearch } from "./styles";
 const Form = (props) => {
   const [makes, setMakes] = useState([]);
   const [models, setModels] = useState([]);
+  const [modelsName, setModelsName] = useState([]);
 
   useEffect(() => {
     api.get("Make").then((response) => {
@@ -24,7 +25,16 @@ const Form = (props) => {
     getModel();
   }, [makes]);
 
-  console.log("model final", models);
+  let allModelsName = [];
+  if (models.length) {
+    for (let i = 0; i < models.length; i++) {
+      for (let j = 0; j < models[i].length; j++) {
+        const name = models[i][j]["Name"];
+        allModelsName.push(name);
+      }
+    }
+  }
+
   return (
     <FormSearch>
       <div className="form-search">
@@ -61,7 +71,11 @@ const Form = (props) => {
         </select>
       </div>
       <div className="form-model">
-        <select>{}</select>
+        <select>
+          {allModelsName.map((modelName) => (
+            <option key={modelName}>{modelName}</option>
+          ))}
+        </select>
       </div>
     </FormSearch>
   );
