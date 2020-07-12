@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { MainContent } from "./styles";
 
 const Form = (props) => {
+  useEffect(() => {
+    let navigationOption = document.getElementsByClassName(
+      "wm-section__options-list-item"
+    );
+
+    for (let i = 0; i < navigationOption.length; i++) {
+      navigationOption[i].addEventListener("click", function (event) {
+        for (let j = 0; j < navigationOption.length; j++) {
+          navigationOption[j].classList.remove("is--active");
+        }
+
+        this.classList.add("is--active");
+      });
+    }
+  }, []);
+
   return (
     <MainContent>
       <section className="wm-section">
