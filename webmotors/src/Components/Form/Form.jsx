@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 import { MainContent } from "./styles";
 
 const Form = (props) => {
+  const containerSearch = useRef(null);
+
   useEffect(() => {
     let navigationOption = document.getElementsByClassName(
       "wm-section__options-list-item"
@@ -15,9 +17,16 @@ const Form = (props) => {
         }
 
         this.classList.add("is--active");
+
+        containerSearch.current.innerHTML = "";
+        anotherFunction();
       });
     }
   }, []);
+
+  const anotherFunction = () => {
+    console.log("testando chamadaaa");
+  };
 
   return (
     <MainContent>
@@ -58,6 +67,9 @@ const Form = (props) => {
               Vender meu carro
             </button>
           </nav>
+        </div>
+        <div className="wm-section__search" ref={containerSearch}>
+          Testtando testandoooo
         </div>
       </section>
     </MainContent>
