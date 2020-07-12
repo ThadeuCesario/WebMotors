@@ -84,6 +84,13 @@ export const MainContent = styled.main`
           }
         }
       }
+      &-sell {
+        padding: 10px 30px;
+        font-size: 0.75rem;
+        border: solid 2px #ffa500;
+        color: #ffa500;
+        font-weight: 600;
+      }
     }
   }
 `;

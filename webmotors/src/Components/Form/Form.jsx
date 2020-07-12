@@ -38,7 +38,9 @@ const Form = (props) => {
                 </div>
               </li>
             </ul>
-            <button>Vender meu carro</button>
+            <button className="wm-section__options-sell">
+              Vender meu carro
+            </button>
           </nav>
         </div>
       </section>
