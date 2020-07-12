@@ -1,17 +1,30 @@
-import React, { useEffect, useState, useDebugValue } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../../services/api";
 
 import { FormSearch } from "./styles";
 
 const Form = (props) => {
-  const [vehicles, setVehicles] = useState(null);
+  const [makes, setMakes] = useState([]);
+  const [models, setModels] = useState([]);
 
   useEffect(() => {
-    api.get("Vehicles?Page=5").then((response) => {
-      console.log(response.data);
+    api.get("Make").then((response) => {
+      setMakes([...response.data]);
     });
   }, []);
 
+  useEffect(() => {
+    async function getModel() {
+      for (let i = 0; i < makes.length; i++) {
+        const response = await api.get(`Model?MakeID=${makes[i]["ID"]}`);
+        const model = response.data;
+        setModels((models) => [...models, model]);
+      }
+    }
+    getModel();
+  }, [makes]);
+
+  console.log("model final", models);
   return (
     <FormSearch>
       <div className="form-search">
@@ -39,6 +52,16 @@ const Form = (props) => {
             Usados
           </label>
         </div>
+      </div>
+      <div className="form-make">
+        <select>
+          {makes.map((make) => (
+            <option key={make["ID"]}>{make["Name"]}</option>
+          ))}
+        </select>
+      </div>
+      <div className="form-model">
+        <select>{}</select>
       </div>
     </FormSearch>
   );
