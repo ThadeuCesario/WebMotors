@@ -19,14 +19,9 @@ const Form = (props) => {
         this.classList.add("is--active");
 
         containerSearch.current.innerHTML = "";
-        anotherFunction();
       });
     }
   }, []);
-
-  const anotherFunction = () => {
-    console.log("testando chamadaaa");
-  };
 
   return (
     <MainContent>
