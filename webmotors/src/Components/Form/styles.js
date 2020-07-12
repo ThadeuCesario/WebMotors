@@ -29,6 +29,16 @@ export const MainContent = styled.main`
           align-items: center;
           cursor: pointer;
 
+          &-title {
+            &-text {
+              line-height: 20px;
+              &:last-child {
+                text-transform: uppercase;
+                font-size: 1.5rem;
+              }
+            }
+          }
+
           .fa {
             &::before {
               color: #696977;
@@ -47,6 +57,23 @@ export const MainContent = styled.main`
             &-icon {
               border: solid 1px red;
             }
+
+            .wm-section {
+              &__options {
+                &-list {
+                  &-item {
+                    &-title {
+                      &-text {
+                        &:last-child {
+                          color: #e23c44;
+                          transition: color 0.4s;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
         &-icon {
@@ -54,12 +81,6 @@ export const MainContent = styled.main`
           line-height: 20px;
           &::before {
             font-size: 2rem;
-          }
-        }
-        &-title {
-          &:last-child {
-            text-transform: uppercase;
-            font-size: 1.5rem;
           }
         }
       }

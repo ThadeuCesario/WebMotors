@@ -14,9 +14,13 @@ const Form = (props) => {
                   className="fa fa-car wm-section__options-list-icon"
                   aria-hidden="true"
                 ></i>
-                <div className="wm-section__options-list-icon">
-                  <p className="wm-section__options-list-title">Comprar</p>
-                  <span className="wm-section__options-list-title">Carros</span>
+                <div className="wm-section__options-list-item-title">
+                  <p className="wm-section__options-list-item-title-text">
+                    Comprar
+                  </p>
+                  <span className="wm-section__options-list-item-title-text">
+                    Carros
+                  </span>
                 </div>
               </li>
               <li className="wm-section__options-list-item">
@@ -24,9 +28,13 @@ const Form = (props) => {
                   className="fa fa-motorcycle wm-section__options-list-icon"
                   aria-hidden="true"
                 ></i>
-                <div className="wm-section__options-list-icon">
-                  <p className="wm-section__options-list-title">Comprar</p>
-                  <span className="wm-section__options-list-title">Motos</span>
+                <div className="wm-section__options-list-item-title">
+                  <p className="wm-section__options-list-item-title-text">
+                    Comprar
+                  </p>
+                  <span className="wm-section__options-list-item-title-text">
+                    Motos
+                  </span>
                 </div>
               </li>
             </ul>
