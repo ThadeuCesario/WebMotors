@@ -5,6 +5,7 @@ import { FormSearch } from "./styles";
 
 const Form = (props) => {
   const [makes, setMakes] = useState([]);
+  const [makesOptions, setMakesOptions] = useState([]);
   const [models, setModels] = useState([]);
   const [versions, setVersions] = useState([]);
   const [versionsName, setVersionsName] = useState([]);
@@ -12,6 +13,7 @@ const Form = (props) => {
   useEffect(() => {
     api.get("Make").then((response) => {
       setMakes([...response.data]);
+      setMakesOptions([...response.data]);
     });
   }, []);
 
@@ -53,6 +55,21 @@ const Form = (props) => {
     getVersion();
   }, [models]);
 
+  const handleMakeOptions = useCallback((event) => {
+    let valueSelected = makes.filter(
+      (make) => make["Name"] === event.target.value
+    );
+    setMakes(valueSelected);
+  });
+
+  const handleModelOptions = useCallback((event) => {
+    console.log("handleModelOptions function");
+  });
+
+  const handleVersionOptions = useCallback(() => {
+    console.log("handleVersionOptions function", this);
+  });
+
   return (
     <FormSearch>
       <div className="form-search">
@@ -85,15 +102,15 @@ const Form = (props) => {
         <div className="form-group__block">Primeiro Bloco</div>
         <div className="form-group__block">
           <div className="form-make">
-            <select onChange={() => console.log("função make")}>
+            <select onChange={handleMakeOptions}>
               <option>Todas</option>
-              {makes.map((make) => (
+              {makesOptions.map((make) => (
                 <option key={make["ID"]}>{make["Name"]}</option>
               ))}
             </select>
           </div>
           <div className="form-model">
-            <select onChange={() => console.log("função model")}>
+            <select onChange={handleModelOptions}>
               <option>Todos</option>
               {models.map((model) => (
                 <option key={model["ID"]}>{model["Name"]}</option>
@@ -101,7 +118,7 @@ const Form = (props) => {
             </select>
           </div>
           <div className="form-version">
-            <select onChange={() => console.log("função versão")}>
+            <select onChange={handleVersionOptions}>
               <option>Todos</option>
               {versionsName.map((modelName, index) => (
                 <option key={index}>{modelName}</option>
