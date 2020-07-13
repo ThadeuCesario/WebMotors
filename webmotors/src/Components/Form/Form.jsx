@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../../services/api";
 
 import { FormSearch } from "./styles";
@@ -26,22 +26,21 @@ const Form = (props) => {
   }, [makes]);
 
   let allModelsName = [];
-  let allModelsId = [];
   if (models.length) {
+    allModelsName = [];
     for (let i = 0; i < models.length; i++) {
       for (let j = 0; j < models[i].length; j++) {
-        const name = models[i][j]["Name"];
-        const id = models[i][j]["ID"];
+        const name = models[i][j];
         allModelsName.push(name);
-        allModelsId.push(id);
       }
     }
   }
 
   useEffect(() => {
     async function getVersion() {
-      for (let i = 0; i < allModelsId.length; i++) {
-        const response = await api.get(`Version?ModelID=${allModelsId[i]}`);
+      for (let i = 0; i < allModelsName.length; i++) {
+        const modelID = allModelsName[i]["ID"];
+        const response = await api.get(`Version?ModelID=${modelID}`);
         const version = response.data;
         setVersions((versions) => [...versions, version]);
       }
@@ -49,16 +48,17 @@ const Form = (props) => {
     getVersion();
   }, [models]);
 
-  console.log(versions, "aaa");
-
-  /*
-  async function getVersion() {
-    for (let i = 0; i < allModelsId.length; i++) {
-      const response = await api.get(`Version?ModelID=${allModelsId[i]}`);
-      const version = response.data;
-      setVersions((versions) => [...versions, version]);
+  let allVersionsName = [];
+  if (versions.length) {
+    allVersionsName = [];
+    for (let i = 0; i < versions.length; i++) {
+      for (let j = 0; j < versions[i].length; j++) {
+        const name = versions[i][j]["Name"];
+        allVersionsName.push(name);
+      }
     }
-  }*/
+    allVersionsName = Array.from(new Set(allVersionsName));
+  }
 
   return (
     <FormSearch>
@@ -98,7 +98,14 @@ const Form = (props) => {
       <div className="form-model">
         <select>
           {allModelsName.map((modelName) => (
-            <option key={modelName}>{modelName}</option>
+            <option key={modelName["ID"]}>{modelName["Name"]}</option>
+          ))}
+        </select>
+      </div>
+      <div className="form-version">
+        <select>
+          {allVersionsName.map((modelName, index) => (
+            <option key={index}>{modelName}</option>
           ))}
         </select>
       </div>
