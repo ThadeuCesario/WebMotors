@@ -83,7 +83,25 @@ const Form = (props) => {
   });
 
   const handleModelOptions = useCallback((event) => {
-    console.log("handleModelOptions function");
+    let makeOptions = document.getElementsByClassName(
+      "form-make__select-option"
+    );
+
+    let modelNameUserSelected = models
+      .filter((model) => model["Name"] === event.target.value)
+      .map((model) => model["MakeID"])[0];
+
+    let makeUserSelected = makes.filter(
+      (make) => make["ID"] === modelNameUserSelected
+    )[0]["Name"];
+
+    console.log(makeUserSelected);
+
+    for (let i = 0; i < makeOptions.length; i++) {
+      if (makeOptions[i].textContent === makeUserSelected) {
+        makeOptions[i].setAttribute("selected", "selected");
+      }
+    }
   });
 
   const handleVersionOptions = useCallback(() => {
@@ -122,10 +140,12 @@ const Form = (props) => {
         <div className="form-group__block">Primeiro Bloco</div>
         <div className="form-group__block">
           <div className="form-make">
-            <select onChange={handleMakeOptions}>
-              <option>Todas</option>
+            <select onChange={handleMakeOptions} className="form-make__select">
+              <option className="form-make__select-option">Todas</option>
               {makes.map((make) => (
-                <option key={make["ID"]}>{make["Name"]}</option>
+                <option key={make["ID"]} className="form-make__select-option">
+                  {make["Name"]}
+                </option>
               ))}
             </select>
           </div>
