@@ -91,16 +91,29 @@ const Form = (props) => {
       .filter((model) => model["Name"] === event.target.value)
       .map((model) => model["MakeID"])[0];
 
+    let modelIdUserSelected = models.filter(
+      (model) => model["Name"] === event.target.value
+    )[0]["ID"];
+
     let makeUserSelected = makes.filter(
       (make) => make["ID"] === modelNameUserSelected
     )[0]["Name"];
 
-    console.log(makeUserSelected);
-
     for (let i = 0; i < makeOptions.length; i++) {
+      makeOptions[i].removeAttribute("selected", "selected");
+
       if (makeOptions[i].textContent === makeUserSelected) {
         makeOptions[i].setAttribute("selected", "selected");
       }
+    }
+
+    let versionUserSelected = versions.filter(
+      (version) => version["ModelID"] === modelIdUserSelected
+    );
+
+    let versionsNameUserSelected = [];
+    for (let i = 0; i < versionUserSelected.length; i++) {
+      versionsNameUserSelected.push(versionUserSelected[i]);
     }
   });
 
