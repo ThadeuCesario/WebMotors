@@ -1,76 +1,114 @@
-import React, { useEffect, useState, useDebugValue } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../../services/api";
 
 import { FormSearch } from "./styles";
 
 const Form = (props) => {
-  const [make, setMake] = useState(null);
-  const [makeId, setMakeId] = useState(null);
-  const [model, setModel] = useState(null);
-  const [modelId, setModelId] = useState(null);
-  const [version, setVersion] = useState(null);
+  const [makes, setMakes] = useState([]);
+  const [models, setModels] = useState([]);
+  const [versions, setVersions] = useState([]);
 
   useEffect(() => {
     api.get("Make").then((response) => {
-      setMake(response.data);
+      setMakes([...response.data]);
     });
   }, []);
 
   useEffect(() => {
-    if (make) {
-      let makeId = [];
-      for (let i = 0; i < make.length; i++) {
-        makeId.push(make[i]["ID"]);
-      }
-      setMakeId(makeId);
-    }
-  }, [make]);
-
-  useEffect(() => {
-    function getModel() {
-      if (makeId) {
-        for (let i = 0; i < makeId.length; i++) {
-          api.get(`Model?MakeID=${makeId[i]}`).then((response) => {
-            setModel(response.data);
-          });
-        }
+    async function getModel() {
+      for (let i = 0; i < makes.length; i++) {
+        const response = await api.get(`Model?MakeID=${makes[i]["ID"]}`);
+        const model = response.data;
+        setModels((models) => [...models, model]);
       }
     }
     getModel();
-  }, [makeId]);
+  }, [makes]);
 
-  useEffect(() => {
-    if (model) {
-      let modelId = [];
-
-      for (let i = 0; i < model.length; i++) {
-        modelId.push(model[i]["ID"]);
+  let allModelsName = [];
+  if (models.length) {
+    allModelsName = [];
+    for (let i = 0; i < models.length; i++) {
+      for (let j = 0; j < models[i].length; j++) {
+        const name = models[i][j];
+        allModelsName.push(name);
       }
-      setModelId(modelId);
     }
-  }, [model]);
+  }
 
   useEffect(() => {
     async function getVersion() {
-      if (modelId) {
-        for (let i = 0; i < modelId.length; i++) {
-          await api.get(`Version?ModelID=${modelId[i]}`).then((response) => {
-            console.log(response.data, i);
-          });
-        }
+      for (let i = 0; i < allModelsName.length; i++) {
+        const modelID = allModelsName[i]["ID"];
+        const response = await api.get(`Version?ModelID=${modelID}`);
+        const version = response.data;
+        setVersions((versions) => [...versions, version]);
       }
     }
     getVersion();
-  }, [modelId]);
+  }, [models]);
 
-  //console.log("make", make);
-  //console.log("makeId", makeId);
-  //console.log("model", model);
-  //console.log("modelId", modelId);
+  let allVersionsName = [];
+  if (versions.length) {
+    allVersionsName = [];
+    for (let i = 0; i < versions.length; i++) {
+      for (let j = 0; j < versions[i].length; j++) {
+        const name = versions[i][j]["Name"];
+        allVersionsName.push(name);
+      }
+    }
+    allVersionsName = Array.from(new Set(allVersionsName));
+  }
 
   return (
     <FormSearch>
-      <div>AQUI ESTARÁ O FORMULARIO</div>
+      <div className="form-search">
+        <div className="form-search__option">
+          <input
+            className="form-search__option-input"
+            type="checkbox"
+            id="newCars"
+            name="newCars"
+            defaultChecked
+          />
+          <label className="form-search__option-label" htmlFor="newCars">
+            Novos
+          </label>
+        </div>
+        <div className="form-search__option">
+          <input
+            className="form-search__option-input"
+            type="checkbox"
+            id="newCars"
+            name="newCars"
+            defaultChecked
+          />
+          <label className="form-search__option-label" htmlFor="newCars">
+            Usados
+          </label>
+        </div>
+      </div>
+      <div className="form-make">
+        <select>
+          {makes.map((make) => (
+            <option key={make["ID"]}>{make["Name"]}</option>
+          ))}
+        </select>
+      </div>
+      <div className="form-model">
+        <select>
+          {allModelsName.map((modelName) => (
+            <option key={modelName["ID"]}>{modelName["Name"]}</option>
+          ))}
+        </select>
+      </div>
+      <div className="form-version">
+        <select>
+          {allVersionsName.map((modelName, index) => (
+            <option key={index}>{modelName}</option>
+          ))}
+        </select>
+      </div>
     </FormSearch>
   );
 };
