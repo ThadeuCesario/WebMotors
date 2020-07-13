@@ -5,15 +5,14 @@ import { FormSearch } from "./styles";
 
 const Form = (props) => {
   const [makes, setMakes] = useState([]);
-  const [makesOptions, setMakesOptions] = useState([]);
   const [models, setModels] = useState([]);
+  const [modelsOptions, setModelsOptions] = useState([]);
   const [versions, setVersions] = useState([]);
   const [versionsName, setVersionsName] = useState([]);
 
   useEffect(() => {
     api.get("Make").then((response) => {
       setMakes([...response.data]);
-      setMakesOptions([...response.data]);
     });
   }, []);
 
@@ -28,6 +27,7 @@ const Form = (props) => {
         }
       }
       setModels(formatModel);
+      setModelsOptions(formatModel);
     }
     getModel();
   }, [makes]);
@@ -56,10 +56,30 @@ const Form = (props) => {
   }, [models]);
 
   const handleMakeOptions = useCallback((event) => {
-    let valueSelected = makes.filter(
+    let makeIdUserSelected = makes.filter(
       (make) => make["Name"] === event.target.value
+    )[0]["ID"];
+
+    let modelsUserSelected = models.filter(
+      (model) => model["MakeID"] === makeIdUserSelected
     );
-    setMakes(valueSelected);
+
+    let versionsUserSelected = null;
+    let versionsNameUserSelected = [];
+    for (let i = 0; i < modelsUserSelected.length; i++) {
+      versionsUserSelected = versions.filter(
+        (version) => version["ModelID"] === modelsUserSelected[i]["ID"]
+      );
+
+      for (let j = 0; j < versionsUserSelected.length; j++) {
+        versionsNameUserSelected.push(versionsUserSelected[j]["Name"]);
+      }
+    }
+
+    versionsNameUserSelected = Array.from(new Set(versionsNameUserSelected));
+
+    setModelsOptions(modelsUserSelected);
+    setVersionsName(versionsNameUserSelected);
   });
 
   const handleModelOptions = useCallback((event) => {
@@ -104,7 +124,7 @@ const Form = (props) => {
           <div className="form-make">
             <select onChange={handleMakeOptions}>
               <option>Todas</option>
-              {makesOptions.map((make) => (
+              {makes.map((make) => (
                 <option key={make["ID"]}>{make["Name"]}</option>
               ))}
             </select>
@@ -112,7 +132,7 @@ const Form = (props) => {
           <div className="form-model">
             <select onChange={handleModelOptions}>
               <option>Todos</option>
-              {models.map((model) => (
+              {modelsOptions.map((model) => (
                 <option key={model["ID"]}>{model["Name"]}</option>
               ))}
             </select>
