@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, version } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import api from "../../services/api";
 
 import { FormSearch } from "./styles";
@@ -6,7 +6,9 @@ import { FormSearch } from "./styles";
 const Form = (props) => {
   const [makes, setMakes] = useState([]);
   const [models, setModels] = useState([]);
+  const [modelsOptions, setModelsOptions] = useState([]);
   const [versions, setVersions] = useState([]);
+  const [versionsName, setVersionsName] = useState([]);
 
   useEffect(() => {
     api.get("Make").then((response) => {
@@ -16,67 +18,95 @@ const Form = (props) => {
 
   useEffect(() => {
     async function getModel() {
+      let formatModel = [];
       for (let i = 0; i < makes.length; i++) {
         const response = await api.get(`Model?MakeID=${makes[i]["ID"]}`);
         const model = response.data;
-        setModels((models) => [...models, model]);
+        for (let j = 0; j < model.length; j++) {
+          formatModel.push(model[j]);
+        }
       }
+      setModels(formatModel);
+      setModelsOptions(formatModel);
     }
     getModel();
   }, [makes]);
 
-  let allModelsName = [];
-  if (models.length) {
-    console.log("a entrei novamente");
-    allModelsName = [];
-    for (let i = 0; i < models.length; i++) {
-      for (let j = 0; j < models[i].length; j++) {
-        const name = models[i][j];
-        allModelsName.push(name);
-      }
-    }
-  }
-
   useEffect(() => {
     async function getVersion() {
-      for (let i = 0; i < allModelsName.length; i++) {
-        const modelID = allModelsName[i]["ID"];
-        const response = await api.get(`Version?ModelID=${modelID}`);
+      let formatVersion = [];
+      let namesVersion = [];
+
+      for (let i = 0; i < models.length; i++) {
+        const response = await api.get(`Version?ModelID=${models[i]["ID"]}`);
         const version = response.data;
-        setVersions((versions) => [...versions, version]);
+
+        for (let j = 0; j < version.length; j++) {
+          formatVersion.push(version[j]);
+          namesVersion.push(version[j]["Name"]);
+        }
       }
+
+      namesVersion = Array.from(new Set(namesVersion));
+
+      setVersionsName(namesVersion);
+      setVersions(formatVersion);
     }
     getVersion();
   }, [models]);
 
-  let allVersionsName = [];
-  if (versions.length) {
-    allVersionsName = [];
-    for (let i = 0; i < versions.length; i++) {
-      for (let j = 0; j < versions[i].length; j++) {
-        const name = versions[i][j]["Name"];
-        allVersionsName.push(name);
+  const handleMakeOptions = useCallback((event) => {
+    let makeIdUserSelected = makes.filter(
+      (make) => make["Name"] === event.target.value
+    )[0]["ID"];
+
+    let modelsUserSelected = models.filter(
+      (model) => model["MakeID"] === makeIdUserSelected
+    );
+
+    let versionsUserSelected = null;
+    let versionsNameUserSelected = [];
+    for (let i = 0; i < modelsUserSelected.length; i++) {
+      versionsUserSelected = versions.filter(
+        (version) => version["ModelID"] === modelsUserSelected[i]["ID"]
+      );
+
+      for (let j = 0; j < versionsUserSelected.length; j++) {
+        versionsNameUserSelected.push(versionsUserSelected[j]["Name"]);
       }
     }
-    allVersionsName = Array.from(new Set(allVersionsName));
-  }
 
-  const handleMakeOptions = useCallback(() => {
-    console.log("testando model", makes);
-  }, [makes]);
+    versionsNameUserSelected = Array.from(new Set(versionsNameUserSelected));
 
-  const handleModelOptions = useCallback(() => {
-    setMakes([
-      { ID: 10, Name: "Ferrari" },
-      { ID: 11, Name: "Mercedes" },
-      { ID: 12, Name: "Range" },
-    ]);
-    console.log(models);
-  }, [models]);
+    setModelsOptions(modelsUserSelected);
+    setVersionsName(versionsNameUserSelected);
+  });
+
+  const handleModelOptions = useCallback((event) => {
+    let makeOptions = document.getElementsByClassName(
+      "form-make__select-option"
+    );
+
+    let modelNameUserSelected = models
+      .filter((model) => model["Name"] === event.target.value)
+      .map((model) => model["MakeID"])[0];
+
+    let makeUserSelected = makes.filter(
+      (make) => make["ID"] === modelNameUserSelected
+    )[0]["Name"];
+
+    console.log(makeUserSelected);
+
+    for (let i = 0; i < makeOptions.length; i++) {
+      if (makeOptions[i].textContent === makeUserSelected) {
+        makeOptions[i].setAttribute("selected", "selected");
+      }
+    }
+  });
 
   const handleVersionOptions = useCallback(() => {
-    console.log("testando version", allVersionsName);
-  }, [versions]);
+    console.log("handleVersionOptions function", this);
+  });
 
   return (
     <FormSearch>
@@ -110,25 +140,27 @@ const Form = (props) => {
         <div className="form-group__block">Primeiro Bloco</div>
         <div className="form-group__block">
           <div className="form-make">
-            <select onChange={handleMakeOptions}>
-              <option>Todas</option>
+            <select onChange={handleMakeOptions} className="form-make__select">
+              <option className="form-make__select-option">Todas</option>
               {makes.map((make) => (
-                <option key={make["ID"]}>{make["Name"]}</option>
+                <option key={make["ID"]} className="form-make__select-option">
+                  {make["Name"]}
+                </option>
               ))}
             </select>
           </div>
           <div className="form-model">
             <select onChange={handleModelOptions}>
               <option>Todos</option>
-              {allModelsName.map((modelName) => (
-                <option key={modelName["ID"]}>{modelName["Name"]}</option>
+              {modelsOptions.map((model) => (
+                <option key={model["ID"]}>{model["Name"]}</option>
               ))}
             </select>
           </div>
           <div className="form-version">
             <select onChange={handleVersionOptions}>
               <option>Todos</option>
-              {allVersionsName.map((modelName, index) => (
+              {versionsName.map((modelName, index) => (
                 <option key={index}>{modelName}</option>
               ))}
             </select>
