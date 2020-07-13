@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import api from "../../services/api";
 
 import { FormSearch } from "./styles";
@@ -6,7 +6,7 @@ import { FormSearch } from "./styles";
 const Form = (props) => {
   const [makes, setMakes] = useState([]);
   const [models, setModels] = useState([]);
-  const [modelsName, setModelsName] = useState([]);
+  const [versions, setVersions] = useState([]);
 
   useEffect(() => {
     api.get("Make").then((response) => {
@@ -26,14 +26,39 @@ const Form = (props) => {
   }, [makes]);
 
   let allModelsName = [];
+  let allModelsId = [];
   if (models.length) {
     for (let i = 0; i < models.length; i++) {
       for (let j = 0; j < models[i].length; j++) {
         const name = models[i][j]["Name"];
+        const id = models[i][j]["ID"];
         allModelsName.push(name);
+        allModelsId.push(id);
       }
     }
   }
+
+  useEffect(() => {
+    async function getVersion() {
+      for (let i = 0; i < allModelsId.length; i++) {
+        const response = await api.get(`Version?ModelID=${allModelsId[i]}`);
+        const version = response.data;
+        setVersions((versions) => [...versions, version]);
+      }
+    }
+    getVersion();
+  }, [models]);
+
+  console.log(versions, "aaa");
+
+  /*
+  async function getVersion() {
+    for (let i = 0; i < allModelsId.length; i++) {
+      const response = await api.get(`Version?ModelID=${allModelsId[i]}`);
+      const version = response.data;
+      setVersions((versions) => [...versions, version]);
+    }
+  }*/
 
   return (
     <FormSearch>
