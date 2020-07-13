@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, version } from "react";
 import api from "../../services/api";
 
 import { FormSearch } from "./styles";
@@ -27,6 +27,7 @@ const Form = (props) => {
 
   let allModelsName = [];
   if (models.length) {
+    console.log("a entrei novamente");
     allModelsName = [];
     for (let i = 0; i < models.length; i++) {
       for (let j = 0; j < models[i].length; j++) {
@@ -60,6 +61,23 @@ const Form = (props) => {
     allVersionsName = Array.from(new Set(allVersionsName));
   }
 
+  const handleMakeOptions = useCallback(() => {
+    console.log("testando model", makes);
+  }, [makes]);
+
+  const handleModelOptions = useCallback(() => {
+    setMakes([
+      { ID: 10, Name: "Ferrari" },
+      { ID: 11, Name: "Mercedes" },
+      { ID: 12, Name: "Range" },
+    ]);
+    console.log(models);
+  }, [models]);
+
+  const handleVersionOptions = useCallback(() => {
+    console.log("testando version", allVersionsName);
+  }, [versions]);
+
   return (
     <FormSearch>
       <div className="form-search">
@@ -88,26 +106,34 @@ const Form = (props) => {
           </label>
         </div>
       </div>
-      <div className="form-make">
-        <select>
-          {makes.map((make) => (
-            <option key={make["ID"]}>{make["Name"]}</option>
-          ))}
-        </select>
-      </div>
-      <div className="form-model">
-        <select>
-          {allModelsName.map((modelName) => (
-            <option key={modelName["ID"]}>{modelName["Name"]}</option>
-          ))}
-        </select>
-      </div>
-      <div className="form-version">
-        <select>
-          {allVersionsName.map((modelName, index) => (
-            <option key={index}>{modelName}</option>
-          ))}
-        </select>
+      <div className="form-group">
+        <div className="form-group__block">Primeiro Bloco</div>
+        <div className="form-group__block">
+          <div className="form-make">
+            <select onChange={handleMakeOptions}>
+              <option>Todas</option>
+              {makes.map((make) => (
+                <option key={make["ID"]}>{make["Name"]}</option>
+              ))}
+            </select>
+          </div>
+          <div className="form-model">
+            <select onChange={handleModelOptions}>
+              <option>Todos</option>
+              {allModelsName.map((modelName) => (
+                <option key={modelName["ID"]}>{modelName["Name"]}</option>
+              ))}
+            </select>
+          </div>
+          <div className="form-version">
+            <select onChange={handleVersionOptions}>
+              <option>Todos</option>
+              {allVersionsName.map((modelName, index) => (
+                <option key={index}>{modelName}</option>
+              ))}
+            </select>
+          </div>
+        </div>
       </div>
     </FormSearch>
   );
