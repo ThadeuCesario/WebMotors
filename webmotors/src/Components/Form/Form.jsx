@@ -56,6 +56,11 @@ const Form = (props) => {
   }, [models]);
 
   const handleMakeOptions = useCallback((event) => {
+    if (!isNaN(event.target.value)) {
+      setModelsOptions(models);
+      return;
+    }
+
     let makeIdUserSelected = makes.filter(
       (make) => make["Name"] === event.target.value
     )[0]["ID"];
@@ -169,7 +174,9 @@ const Form = (props) => {
         <div className="form-group__block">
           <div className="form-make">
             <select onChange={handleMakeOptions} className="form-make__select">
-              <option className="form-make__select-option">Todas</option>
+              <option className="form-make__select-option" value={0}>
+                Todas
+              </option>
               {makes.map((make) => (
                 <option key={make["ID"]} className="form-make__select-option">
                   {make["Name"]}
@@ -179,7 +186,7 @@ const Form = (props) => {
           </div>
           <div className="form-model">
             <select onChange={handleModelOptions}>
-              <option>Todos</option>
+              <option value={0}>Todos</option>
               {modelsOptions.map((model) => (
                 <option key={model["ID"]}>{model["Name"]}</option>
               ))}
@@ -187,7 +194,7 @@ const Form = (props) => {
           </div>
           <div className="form-version">
             <select onChange={handleVersionOptions}>
-              <option>Todos</option>
+              <option value={0}>Todos</option>
               {versionsName.map((modelName, index) => (
                 <option key={index}>{modelName}</option>
               ))}
