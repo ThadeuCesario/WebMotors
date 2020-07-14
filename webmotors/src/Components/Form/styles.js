@@ -39,15 +39,38 @@ export const FormSearch = styled.form`
 
     &__option {
       margin: 0 20px 0 0;
+
       &-input {
-        margin: 0 10px 0 0;
+        cursor: pointer;
       }
       &-label {
+        padding: 0 0 0 10px;
+        cursor: pointer;
       }
     }
   }
   .form-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
     &__block {
+      &-filter {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        &-select {
+          width: 49%;
+          padding: 10px;
+          background-color: #fff;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      }
+
       &-details {
         margin: 0 0 15px 0;
         .form-make {
@@ -80,6 +103,57 @@ export const FormSearch = styled.form`
           background-color: #fff;
           cursor: pointer;
         }
+      }
+    }
+  }
+  .form-options {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0 0 0;
+
+    &__search {
+      width: 49%;
+      font-size: 0.75rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      &-icon {
+        &::before {
+          color: #e23c44;
+        }
+      }
+
+      &-text {
+        color: #e23c44;
+        font-family: "Poppins", sans-serif;
+        cursor: pointer;
+
+        .fa {
+          margin: 0 5px 0 0;
+        }
+      }
+
+      &-clear {
+        width: 29%;
+        cursor: pointer;
+      }
+
+      &-submit {
+        width: 69%;
+        text-align: center;
+        text-transform: uppercase;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #e23c44;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #fff;
+        cursor: pointer;
       }
     }
   }

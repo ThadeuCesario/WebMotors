@@ -240,7 +240,21 @@ const Form = (props) => {
         </div>
       </div>
       <div className="form-group">
-        <div className="form-group__block">Primeiro Bloco</div>
+        <div className="form-group__block">
+          <div>INPUT COM LOCALE</div>
+          <div className="form-group__block-filter">
+            <select className="form-group__block-filter-select">
+              <option className="form-group__block-filter-select-option">
+                Ano Deseajado
+              </option>
+            </select>
+            <select className="form-group__block-filter-select">
+              <option className="form-group__block-filter-select-option">
+                Faixa de Preço
+              </option>
+            </select>
+          </div>
+        </div>
         <div className="form-group__block">
           <div className="form-group__block-details">
             <div className="form-make">
@@ -299,11 +313,13 @@ const Form = (props) => {
       </div>
       <div className="form-options">
         <div className="form-options__search">
-          <i
-            className="fa fa-angle-right form-options__search-icon"
-            aria-hidden="true"
-          ></i>
-          <span className="form-options__search-text"> Busca Avançada</span>
+          <span className="form-options__search-text">
+            <i
+              className="fa fa-angle-right form-options__search-icon"
+              aria-hidden="true"
+            ></i>
+            Busca Avançada
+          </span>
         </div>
         <div className="form-options__search">
           <div className="form-options__search-clear">Limpar filtros</div>
