@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
+import ArrowDown from "../Assets/icons/arrow-down.png";
+
 export default createGlobalStyle`
   *{
     margin: 0;
@@ -29,6 +31,19 @@ export default createGlobalStyle`
   }
 
   button{
+    cursor: pointer;
+  }
+
+  select {
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;    
+  }
+
+  .fa-caret-down{
+    position: absolute;
+    right: 5px;
+    top: 25%;
     cursor: pointer;
   }
 `;

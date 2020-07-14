@@ -257,6 +257,7 @@ const Form = (props) => {
                   </option>
                 ))}
               </select>
+              <i class="fa fa-caret-down" aria-hidden="true"></i>
             </div>
             <div className="form-model">
               <select
@@ -275,6 +276,7 @@ const Form = (props) => {
                   </option>
                 ))}
               </select>
+              <i class="fa fa-caret-down" aria-hidden="true"></i>
             </div>
           </div>
           <div className="form-version">
@@ -291,6 +293,7 @@ const Form = (props) => {
                 </option>
               ))}
             </select>
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
           </div>
         </div>
       </div>
