@@ -241,7 +241,21 @@ const Form = (props) => {
       </div>
       <div className="form-group">
         <div className="form-group__block">
-          <div>INPUT COM LOCALE</div>
+          <div className="form-group__block-locale">
+            <input type="text" />
+            <select>
+              <option>10km</option>
+              <option>20km</option>
+              <option>30km</option>
+              <option>40km</option>
+              <option>50km</option>
+              <option>60km</option>
+              <option>70km</option>
+              <option>80km</option>
+              <option>90km</option>
+              <option>100km</option>
+            </select>
+          </div>
           <div className="form-group__block-filter">
             <select className="form-group__block-filter-select">
               <option className="form-group__block-filter-select-option">

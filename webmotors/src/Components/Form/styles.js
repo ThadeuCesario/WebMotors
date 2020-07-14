@@ -71,6 +71,10 @@ export const FormSearch = styled.form`
         }
       }
 
+      &-locale {
+        border: solid 1px red;
+      }
+
       &-details {
         margin: 0 0 15px 0;
         .form-make {
