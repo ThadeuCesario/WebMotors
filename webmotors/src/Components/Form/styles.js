@@ -72,7 +72,22 @@ export const FormSearch = styled.form`
       }
 
       &-locale {
-        border: solid 1px red;
+        margin: 0 0 15px 0;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        &-input {
+          height: 100%;
+          padding: 5px;
+        }
+
+        &-select {
+          padding: 10px;
+          background-color: #fff;
+        }
       }
 
       &-details {

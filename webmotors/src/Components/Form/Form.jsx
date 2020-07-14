@@ -242,18 +242,38 @@ const Form = (props) => {
       <div className="form-group">
         <div className="form-group__block">
           <div className="form-group__block-locale">
-            <input type="text" />
-            <select>
-              <option>10km</option>
-              <option>20km</option>
-              <option>30km</option>
-              <option>40km</option>
-              <option>50km</option>
-              <option>60km</option>
-              <option>70km</option>
-              <option>80km</option>
-              <option>90km</option>
-              <option>100km</option>
+            <input type="text" className="form-group__block-locale-input" />
+            <select className="form-group__block-locale-select">
+              <option className="form-group__block-locale-select-option">
+                10km
+              </option>
+              <option className="form-group__block-locale-select-option">
+                20km
+              </option>
+              <option className="form-group__block-locale-select-option">
+                30km
+              </option>
+              <option className="form-group__block-locale-select-option">
+                40km
+              </option>
+              <option className="form-group__block-locale-select-option">
+                50km
+              </option>
+              <option className="form-group__block-locale-select-option">
+                60km
+              </option>
+              <option className="form-group__block-locale-select-option">
+                70km
+              </option>
+              <option className="form-group__block-locale-select-option">
+                80km
+              </option>
+              <option className="form-group__block-locale-select-option">
+                90km
+              </option>
+              <option className="form-group__block-locale-select-option">
+                100km
+              </option>
             </select>
           </div>
           <div className="form-group__block-filter">
