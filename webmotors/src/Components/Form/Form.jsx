@@ -257,6 +257,7 @@ const Form = (props) => {
                   </option>
                 ))}
               </select>
+              <i class="fa fa-caret-down" aria-hidden="true"></i>
             </div>
             <div className="form-model">
               <select
@@ -275,6 +276,7 @@ const Form = (props) => {
                   </option>
                 ))}
               </select>
+              <i class="fa fa-caret-down" aria-hidden="true"></i>
             </div>
           </div>
           <div className="form-version">
@@ -291,7 +293,21 @@ const Form = (props) => {
                 </option>
               ))}
             </select>
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
           </div>
+        </div>
+      </div>
+      <div className="form-options">
+        <div className="form-options__search">
+          <i
+            className="fa fa-angle-right form-options__search-icon"
+            aria-hidden="true"
+          ></i>
+          <span className="form-options__search-text"> Busca Avançada</span>
+        </div>
+        <div className="form-options__search">
+          <div className="form-options__search-clear">Limpar filtros</div>
+          <div className="form-options__search-submit">Ver Ofertas</div>
         </div>
       </div>
     </FormSearch>

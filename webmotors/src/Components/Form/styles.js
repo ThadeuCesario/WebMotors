@@ -51,6 +51,7 @@ export const FormSearch = styled.form`
       &-details {
         margin: 0 0 15px 0;
         .form-make {
+          position: relative;
           &__select {
             width: 100%;
             padding: 10px;
@@ -60,6 +61,7 @@ export const FormSearch = styled.form`
           }
         }
         .form-model {
+          position: relative;
           &__select {
             width: 100%;
             padding: 10px;
@@ -70,6 +72,7 @@ export const FormSearch = styled.form`
         }
       }
       .form-version {
+        position: relative;
         &__select {
           width: 100%;
           padding: 10px;
