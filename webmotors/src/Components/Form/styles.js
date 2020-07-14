@@ -17,6 +17,17 @@ export const FormSearch = styled.form`
 
     &__block {
       width: 49%;
+
+      &-details {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        div {
+          width: 49%;
+        }
+      }
     }
   }
   .form-search {
@@ -32,6 +43,40 @@ export const FormSearch = styled.form`
         margin: 0 10px 0 0;
       }
       &-label {
+      }
+    }
+  }
+  .form-group {
+    &__block {
+      &-details {
+        margin: 0 0 15px 0;
+        .form-make {
+          &__select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            cursor: pointer;
+          }
+        }
+        .form-model {
+          &__select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            cursor: pointer;
+          }
+        }
+      }
+      .form-version {
+        &__select {
+          width: 100%;
+          padding: 10px;
+          border-radius: 5px;
+          background-color: #fff;
+          cursor: pointer;
+        }
       }
     }
   }
