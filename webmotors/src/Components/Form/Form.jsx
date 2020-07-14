@@ -113,12 +113,27 @@ const Form = (props) => {
 
     let versionsNameUserSelected = [];
     for (let i = 0; i < versionUserSelected.length; i++) {
-      versionsNameUserSelected.push(versionUserSelected[i]);
+      versionsNameUserSelected.push(versionUserSelected[i]["Name"]);
     }
+
+    setVersionsName(versionsNameUserSelected);
   });
 
-  const handleVersionOptions = useCallback(() => {
-    console.log("handleVersionOptions function", this);
+  const handleVersionOptions = useCallback((event) => {
+    let versionUserSelected = versions.filter(
+      (version) => version["Name"] === event.target.value
+    );
+
+    let modelUserSelected = null;
+    let optionsModelUserSelected = [];
+    for (let i = 0; i < versionUserSelected.length; i++) {
+      modelUserSelected = models.filter(
+        (model) => model["ID"] === versionUserSelected[i]["ModelID"]
+      )[0];
+      optionsModelUserSelected.push(modelUserSelected);
+    }
+
+    setModelsOptions(optionsModelUserSelected);
   });
 
   return (
@@ -140,11 +155,11 @@ const Form = (props) => {
           <input
             className="form-search__option-input"
             type="checkbox"
-            id="newCars"
-            name="newCars"
+            id="oldCars"
+            name="oldCars"
             defaultChecked
           />
-          <label className="form-search__option-label" htmlFor="newCars">
+          <label className="form-search__option-label" htmlFor="oldCars">
             Usados
           </label>
         </div>
